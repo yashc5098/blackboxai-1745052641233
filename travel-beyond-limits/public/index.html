@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Travel Beyond Limits</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-['Roboto'] min-h-screen flex flex-col">
+  <header class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Travel Beyond Limits</h1>
+      <nav>
+        <a href="#" id="homeLink" class="px-3 hover:underline">Home</a>
+        <a href="register.html" class="px-3 hover:underline">Register</a>
+        <a href="login.html" class="px-3 hover:underline">Login</a>
+        <a href="booking.html" class="px-3 hover:underline">Booking</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mx-auto flex-grow p-6">
+    <h2 class="text-3xl font-semibold mb-6">Discover Less Crowded & Affordable Travel Destinations</h2>
+    <p class="mb-8 text-lg text-gray-700">Explore hidden gems and budget-friendly places to travel beyond the usual limits.</p>
+
+    <section id="destinations" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Destination cards will be inserted here by JS -->
+    </section>
+  </main>
+
+  <footer class="bg-blue-600 text-white p-4 text-center">
+    &copy; 2024 Travel Beyond Limits. All rights reserved.
+  </footer>
+
+  <script>
+    const destinations = [
+      {
+        name: "Luang Prabang, Laos",
+        description: "A peaceful town with stunning temples and waterfalls, far from the crowds.",
+        image: "https://images.pexels.com/photos/208736/pexels-photo-208736.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      },
+      {
+        name: "Kotor, Montenegro",
+        description: "A charming coastal town with medieval architecture and fewer tourists.",
+        image: "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      },
+      {
+        name: "Valparaíso, Chile",
+        description: "Colorful hills and street art with a laid-back vibe and affordable prices.",
+        image: "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+      }
+    ];
+
+    const container = document.getElementById('destinations');
+
+    destinations.forEach(dest => {
+      const card = document.createElement('div');
+      card.className = "bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300";
+
+      card.innerHTML = `
+        <img src="${dest.image}" alt="${dest.name}" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-semibold mb-2">${dest.name}</h3>
+          <p class="text-gray-600">${dest.description}</p>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>
