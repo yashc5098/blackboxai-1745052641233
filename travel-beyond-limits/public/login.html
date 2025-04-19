@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Travel Beyond Limits</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-['Roboto'] min-h-screen flex flex-col">
+  <header class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Travel Beyond Limits</h1>
+      <nav>
+        <a href="index.html" class="px-3 hover:underline">Home</a>
+        <a href="register.html" class="px-3 hover:underline">Register</a>
+        <a href="login.html" class="px-3 hover:underline font-bold">Login</a>
+        <a href="booking.html" class="px-3 hover:underline">Booking</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mx-auto flex-grow p-6 max-w-md">
+    <h2 class="text-3xl font-semibold mb-6">Login to Your Account</h2>
+    <form id="loginForm" class="bg-white p-6 rounded-lg shadow-md" novalidate>
+      <div class="mb-4">
+        <label for="email" class="block mb-1 font-semibold">Email</label>
+        <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div class="mb-6">
+        <label for="password" class="block mb-1 font-semibold">Password</label>
+        <input type="password" id="password" name="password" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Login</button>
+      <p id="message" class="mt-4 text-center text-red-600"></p>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      message.textContent = '';
+
+      const formData = {
+        email: form.email.value.trim(),
+        password: form.password.value
+      };
+
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const data = await response.json();
+        if (response.ok) {
+          message.style.color = 'green';
+          message.textContent = data.message;
+          form.reset();
+          // Redirect to booking page after login
+          setTimeout(() => {
+            window.location.href = 'booking.html';
+          }, 1000);
+        } else {
+          message.style.color = 'red';
+          message.textContent = data.error || 'Login failed';
+        }
+      } catch (error) {
+        message.style.color = 'red';
+        message.textContent = 'Server error. Please try again later.';
+      }
+    });
+  </script>
+</body>
+</html>
